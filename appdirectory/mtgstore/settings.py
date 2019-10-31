@@ -25,12 +25,18 @@ SECRET_KEY = '(l756j(-2niig7g1*gtx379l)2#*pby09-1$894f@-o9i(6tra'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+ROOT_URLCONF = 'mtgstore.urls'
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+
 ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'mtgstore.carddetail',
+    'mtgstore.cardlist',
+    'mtgstore.cart',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,6 +56,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'mtgstore.urls'
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+STATICFILES_DIRS = [
+    '%s/static/' % (PROJECT_DIR),
+]
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATICFILES_DIRS = [
@@ -59,7 +70,11 @@ STATICFILES_DIRS = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+<<<<<<< HEAD
         'DIRS': [  '%s/templates' % (PROJECT_DIR), ],
+=======
+        'DIRS': ['%s/templates/' % (PROJECT_DIR),],
+>>>>>>> 4dad539629a24f3fa8cf993df44911cc8f43b19b
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
