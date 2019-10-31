@@ -51,10 +51,15 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'mtgstore.urls'
 
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATICFILES_DIRS = [
+    '%s/static/' % (PROJECT_DIR)
+]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [  '%s/templates' % (PROJECT_DIR), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
