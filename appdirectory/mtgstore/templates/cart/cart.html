@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h2 class="cart-header">Your Cart</h2>
+{% endblock header %}
+<div class="container">
+    <div class="row">
+        <div class="col cartheading">Image</div>
+        <div class="col cartheading">Product Name</div>
+        <div class="col cartheading">Comparison Price</div>
+        <div class="col cartheading">Your Price</div>
+        <div class="col cartheading">Quantity</div>
+    </div>
+    {% for product in cart %}
+        <div class="row">
+            <div class="col cart-image"><img src="{{product.picture}}"/></div>
+            <div class="col cart-item">{{product.name}}</div>
+            <div class="col cart-item">{{product.comparison_price}}</div>
+            <div class="col cart-item">{{product.your_price}}</div>
+            <div class="col cart-item">{{product.quantity}}</div>
+        </div>>
+    {% endfor %}
+</div>
