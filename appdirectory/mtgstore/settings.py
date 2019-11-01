@@ -70,11 +70,7 @@ STATICFILES_DIRS = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-<<<<<<< HEAD
         'DIRS': [  '%s/templates' % (PROJECT_DIR), ],
-=======
-        'DIRS': ['%s/templates/' % (PROJECT_DIR),],
->>>>>>> 4dad539629a24f3fa8cf993df44911cc8f43b19b
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

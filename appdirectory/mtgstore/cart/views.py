@@ -5,25 +5,26 @@ import asyncio
 import requests
 import json
 
-async def get_random_cards():
+def get_random_cards():
     inventory = []
 
     while len(inventory) < 10:
         url = 'https://api.scryfall.com/cards/random'
-        value = await requests.get(url)
+        value = requests.get(url)
         responseJson = value.json()
         card = {
             'name':responseJson['name'],
             'price': responseJson['prices']['usd'],
-            'image': responseJson['image_uris']['large'],
+            'image': responseJson['image_uris']['small'],
             'oracleText': responseJson['oracle_text'],
         }
         inventory.append(card)
     return inventory
 
 def show_cart(request):
-    loop = asyncio.new_event_loop()
-    cart = loop.run_until_complete(get_random_cards())
-    return render(request, 'cart/cart.html', cart)
+    random_cards = get_random_cards()
+    card_input_dict = { "cart": random_cards }
+    print(card_input_dict)
+    return render(request, 'cart/cart.html', card_input_dict)
 
 # Create your views here.
