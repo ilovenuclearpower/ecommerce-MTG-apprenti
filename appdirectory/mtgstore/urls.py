@@ -20,5 +20,6 @@ from django.contrib import admin
 from django.conf import settings
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name="homepage.html"), name="homepage")
+    url(r'^$', TemplateView.as_view(template_name="homepage.html"), name="homepage"),
+    url(r'^cart/', include('mtgstore.cart.urls', namespace="cart_ns"), name="cart")
 ]
