@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h2 class="page-section-heading text-center">Your Cart</h2>
+{% endblock header %}
+
+{% block main %}
+<div class="container">
+    <div class="row">
+        <div class="col cardtableheading">Image</div>
+        <div class="col cardtableheading">Product Name</div>
+        <div class="col cardtableheading">Comparison Price</div>
+        <div class="col cardtableheading">Oracle Text</div>
+        <div class="col cardtableheading">Your Price</div>
+        <div class="col cardtableheading">Quantity</div>
+        <div class="col cardtableheading">Detail</div>
+        <div class="col cardtableheading">Cart</div>"
+    </div>
+    {% for product in cardtable %}
+        <div class="row cardtable-row">
+            <div class="col cardtable-image"><img src="{{product.image}}"/></div>
+            <div class="col cardtable-item">{{product.name}}</div>
+            <div class="col cardtable-item">{{product.price}}</div>
+            <div class="col cardtable-item">{{product.oracleText}}</div>
+            <div class="col cardtable-item">{{product.your_price}}</div>
+            <div class="col cardtable-item">{{product.quantity}}</div>
+            <div class="col cardtable-button"><button class="form-button">Card Detail</button></div>
+            <div class="col cardtable-button"><button class="form-button">Add to Cart</button></div>
+        </div>
+        <div class="table-divider"></div>
+    {% endfor %}
+</div>
+
+{% endblock %}

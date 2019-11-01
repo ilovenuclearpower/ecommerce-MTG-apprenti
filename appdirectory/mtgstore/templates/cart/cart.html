@@ -13,6 +13,7 @@
         <div class="col cartheading">Oracle Text</div>
         <div class="col cartheading">Your Price</div>
         <div class="col cartheading">Quantity</div>
+        <div class="col cartheading">Detail</div>
     </div>
     {% for product in cart %}
         <div class="row cart-row">
@@ -22,6 +23,7 @@
             <div class="col cart-item">{{product.oracleText}}</div>
             <div class="col cart-item">{{product.your_price}}</div>
             <div class="col cart-item">{{product.quantity}}</div>
+            <div class="col cart-button"><button class="form-button">Card Detail</button></div>
         </div>
         <div class="table-divider"></div>
     {% endfor %}

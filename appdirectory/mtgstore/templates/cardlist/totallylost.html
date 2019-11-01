@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h2 class="page-section-heading text-center">We couldn't find a card, try searching again!</h2>
+{% endblock header %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row">
+        <div class="col cardtableheading">Image</div>
+        <div class="col cardtableheading">Product Name</div>
+        <div class="col cardtableheading">Comparison Price</div>
+        <div class="col cardtableheading">Oracle Text</div>
+        <div class="col cardtableheading">Your Price</div>
+        <div class="col cardtableheading">Quantity</div>
+        <div class="col cardtableheading">Detail</div>
+        <div class="col cardtableheading">Cart</div>
+    <div class="row">
+        <div class="col cart-image"><img src="https://img.scryfall.com/cards/small/front/a/d/adffef78-f776-42d3-ab40-3347c8e5c88b.jpg?1557576356"/></div>
+        <div class="col cart-item">Totally Lost</div>
+        <div class="col cart-item">1000</div>
+        <div class="col cart-item">Put target nonland permanent on top of its owner's library.</div>
+        <div class="col cart-item">1000</div>
+        <div class="col cart-item">0</div>
+    </div>
+{% endblock %}
+
