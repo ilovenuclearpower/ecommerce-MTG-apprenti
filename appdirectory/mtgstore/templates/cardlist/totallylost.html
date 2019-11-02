@@ -1,11 +1,10 @@
 {% extends "base.html" %}
-
 {% block header %}
 <h2 class="page-section-heading text-center">We couldn't find a card, try searching again!</h2>
 {% endblock header %}
 
 {% block main %}
-
+{% include "searchbar.html" %}
 <div class="container">
     <div class="row">
         <div class="col cardtableheading">Image</div>
