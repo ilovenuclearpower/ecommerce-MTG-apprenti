@@ -12,8 +12,10 @@ def get_cards_from_scryfall_query(query_string):
     inventory = []
     print(query_string)
     url = 'https://api.scryfall.com/cards/search?q=' + urllib.parse.quote(query_string)
+    print(url)
     api_returned_cards = requests.get(url)
-    print(api_returned_cards)
+    if api_returned_cards.status_code == 404:
+        return None
     returned_cards_json = api_returned_cards.json()
     for i in range(len(returned_cards_json["data"])):
         card = {
@@ -22,7 +24,7 @@ def get_cards_from_scryfall_query(query_string):
             'image': returned_cards_json["data"][i]['image_uris']['small'],
             'oracleText': returned_cards_json["data"][i]['oracle_text'],
         }
-    inventory.append(card)
+        inventory.append(card)
     return inventory
 
 
@@ -36,9 +38,11 @@ def search_card_list(request):
     if search_string == "":
         return render(request, "cardlist/totallylost.html")
     scryfall_card_list = get_cards_from_scryfall_query(search_string)
-    card_list_for_display = {}
-    for i in range(len(scryfall_card_list)):
-        card_list_for_display["card" + str(i)] = scryfall_card_list[i]
+    card_list_for_display = { "cards": {}}
+    if scryfall_card_list == None:
+        return render(request, "cardlist/totallylost.html")
+    card_list_for_display = { "cards" : scryfall_card_list }
+    print(card_list_for_display)
     return render(request, "cardlist/cardlist.html", card_list_for_display)
 
 def show_blank(request):

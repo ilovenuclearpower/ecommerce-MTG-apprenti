@@ -16,14 +16,14 @@
         <div class="col cardtableheading">Detail</div>
         <div class="col cardtableheading">Cart</div>"
     </div>
-    {% for product in cardtable %}
+    {% for product in cards %}
         <div class="row cardtable-row">
             <div class="col cardtable-image"><img src="{{product.image}}"/></div>
             <div class="col cardtable-item">{{product.name}}</div>
             <div class="col cardtable-item">{{product.price}}</div>
             <div class="col cardtable-item">{{product.oracleText}}</div>
-            <div class="col cardtable-item">{{product.your_price}}</div>
-            <div class="col cardtable-item">{{product.quantity}}</div>
+            <div class="col cardtable-item">Somestuff</div>
+            <div class="col cardtable-item">TestyStuff</div>
             <div class="col cardtable-button"><button class="form-button">Card Detail</button></div>
             <div class="col cardtable-button"><button class="form-button">Add to Cart</button></div>
         </div>
