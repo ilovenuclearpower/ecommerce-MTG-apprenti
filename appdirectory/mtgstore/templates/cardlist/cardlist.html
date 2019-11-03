@@ -11,24 +11,57 @@
         <div class="col cardtableheading">Product Name</div>
         <div class="col cardtableheading">Comparison Price</div>
         <div class="col cardtableheading">Oracle Text</div>
-        <div class="col cardtableheading">Your Price</div>
-        <div class="col cardtableheading">Quantity</div>
         <div class="col cardtableheading">Detail</div>
         <div class="col cardtableheading">Cart</div>"
     </div>
     {% for product in cards %}
-        <div class="row cardtable-row">
-            <div class="col cardtable-image"><img src="{{product.image}}"/></div>
-            <div class="col cardtable-item">{{product.name}}</div>
-            <div class="col cardtable-item">{{product.price}}</div>
-            <div class="col cardtable-item">{{product.oracleText}}</div>
-            <div class="col cardtable-item">Somestuff</div>
-            <div class="col cardtable-item">TestyStuff</div>
-            <div class="col cardtable-button"><button class="form-button">Card Detail</button></div>
-            <div class="col cardtable-button"><button class="form-button">Add to Cart</button></div>
+        <div card-container="{{product.name}}" class="row cardtable-row">
+            <div class="col cardtable-image" modal-data-type="card-image"><img src="{{product.image}}" alt="Picture of {{product.name}}"/></div>
+            <div class="col cardtable-item" modal-data-type="card-name">{{product.name}}</div>
+            <div class="col cardtable-item" modal-data-type="card-price">{{product.price}}</div>
+            <div class="col cardtable-item" modal-data-type="card-oracleText">{{product.oracleText}}</div>
+            <div class="col cardtable-button" name="button"><button class="btn btn-primary form-button" data-toggle="modal" data-target="#RANDOMTESTNAME" container-owner="{{product.name}}">Card Detail</button></div>
+            <div class="col cardtable-button" name="button"><button container-owner="{{product.name}}" class="form-button" name="detailButton">Add to Cart</button></div>
         </div>
         <div class="table-divider"></div>
     {% endfor %}
 </div>
+<div class="modal fade" id="RANDOMTESTNAME">
+    <div class="modal-dialog modal-dialog-centered"></div>
+    <div class="modal-content">TESTYTESTTESTTEST</div>
+    <div class="model-content" id="cardDetail">
+    <div>REPLACED</div>
+    </div>
+</div>
 
+{% endblock %}
+{% block scripts %}
+<script>
+'use strict';
+$("#RANDOMTESTNAME").on('show.bs.modal', e => {
+    console.log("Event fired!")
+    console.log(e)
+    name = e.relatedTarget.getAttribute("container-owner")
+    console.log(name)
+    console.log("[card-container='${name}']")
+    let new_content = $("[card-container='" + name + "']").children().clone()
+    let anchordiv = document.createElement('div');
+    anchordiv.className += "modal-dialog ";
+    anchordiv.className += "modal-dialog-centered ";
+    anchordiv.className += "detail-view "
+    let contentdiv = document.createElement('div');
+    contentdiv.className += "modal-content";
+    anchordiv.appendChild(contentdiv);
+    for (let node of new_content) {
+        if (node.getAttribute('name') !== "button") {
+            contentdiv.appendChild(node);
+        }
+    }
+    console.log(new_content)
+        replaceModalContent(anchordiv);
+});
+function replaceModalContent(new_content ) {
+    $("#RANDOMTESTNAME").html(new_content);
+}
+</script>
 {% endblock %}
