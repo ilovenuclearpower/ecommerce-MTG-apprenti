@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'mtgstore.register',
     'mtgstore.carddetail',
     'mtgstore.cardlist',
     'mtgstore.cart',
