@@ -16,10 +16,10 @@
     </div>
     {% for product in cards %}
         <div card-container="{{product.name}}" class="row cardtable-row">
-            <div class="col cardtable-image" modal-data-type="card-image"><img src="{{product.image}}" alt="Picture of {{product.name}}"/></div>
-            <div class="col cardtable-item" modal-data-type="card-name">{{product.name}}</div>
-            <div class="col cardtable-item" modal-data-type="card-price">{{product.price}}</div>
-            <div class="col cardtable-item" modal-data-type="card-oracleText">{{product.oracleText}}</div>
+            <div class="col cardtable-image" modal-data-type="card-image" name="image" card-large-image="{{product.large_image}}"><img src="{{product.image}}" alt="Picture of {{product.name}}"/></div>
+            <div class="col cardtable-item" modal-data-type="card-name" name="card-name">{{product.name}}</div>
+            <div class="col cardtable-item" modal-data-type="card-oracleText"name="oracleText">{{product.oracleText}}</div>
+            <div class="col cardtable-item" modal-data-type="card-price" name="price">{{product.price}}</div>
             <div class="col cardtable-button" name="button"><button class="btn btn-primary form-button" data-toggle="modal" data-target="#RANDOMTESTNAME" container-owner="{{product.name}}">Card Detail</button></div>
             <div class="col cardtable-button" name="button"><button container-owner="{{product.name}}" class="form-button" name="detailButton">Add to Cart</button></div>
         </div>
@@ -39,28 +39,85 @@
 <script>
 'use strict';
 $("#RANDOMTESTNAME").on('show.bs.modal', e => {
-    console.log("Event fired!")
-    console.log(e)
     name = e.relatedTarget.getAttribute("container-owner")
-    console.log(name)
-    console.log("[card-container='${name}']")
     let new_content = $("[card-container='" + name + "']").children().clone()
     let anchordiv = document.createElement('div');
+
+    //Ensures that the bootstrap modal classes follow whenever the elements are replaced.
+
     anchordiv.className += "modal-dialog ";
     anchordiv.className += "modal-dialog-centered ";
     anchordiv.className += "detail-view "
     let contentdiv = document.createElement('div');
     contentdiv.className += "modal-content";
-    anchordiv.appendChild(contentdiv);
+    anchordiv.append(contentdiv);
+
+    //This loop probably depends strongly on the ordering of the input rows - I'm not *quite* sure how to fix that
+
     for (let node of new_content) {
-        if (node.getAttribute('name') !== "button") {
-            contentdiv.appendChild(node);
+        let field = node.getAttribute("name");
+        if (field === "button") {
+            continue;
         }
+        if (field === "card-name") {
+            var fieldContent = document.createElement("div")
+            fieldContent.className = "modal-header";
+            let headerButton = document.createElement('button');
+            let headerContent = document.createElement('h4');
+            headerContent.className = "modal-title";
+            headerContent.innerText = node.innerText;
+            //There has to be a better way to set attributes for the close button, but we're gonna try it this way.
+
+            headerButton.setAttribute("type", "button");
+            headerButton.className = "close";
+            headerButton.setAttribute("data-dismiss", "modal");
+            headerButton.setAttribute("aria-hidden", "true")
+            let headerButtonSpan = document.createElement("span");
+            headerButtonSpan.setAttribute("aria-hidden", "true");
+            headerButtonSpan.innerHTML = "&times;"
+            headerButton.append(headerButtonSpan);
+            fieldContent.append(headerContent);
+            fieldContent.append(headerButton);
+        }
+
+        if (field === "image") {
+            console.log("Image event!");
+            console.log(node.firstChild.getAttribute("card-large-image"));
+            var fieldContent = document.createElement('img');
+            fieldContent.className = "modal-image";
+            fieldContent.setAttribute("src", node.getAttribute('card-large-image'));
+            contentdiv.append(fieldContent);
+        }
+
+        if (field === "oracleText") {
+            var fieldContent = document.createElement("div");
+            fieldContent.className = "modal-body";
+            let fieldText = document.createElement("p");
+            fieldText.innerText = node.innerText;
+            fieldContent.append(fieldText);
+        }
+
+        if (field === "price") {
+            var fieldContent = document.createElement("div");
+            fieldContent.className = "modal-footer";
+            let fieldText = document.createElement("p");
+            fieldText.innerText = node.innerText;
+            let closeButton = document.createElement("btn");
+            closeButton.className = "btn btn-primary";
+            closeButton.setAttribute("data-dismiss", "modal");
+            closeButton.setAttribute("type", "button");
+            closeButton.innerText = "Done";
+            fieldContent.append(fieldText);
+            fieldContent.append(closeButton);
+        }
+        if (fieldContent) {
+            contentdiv.append(fieldContent);
+        }
+
     }
-    console.log(new_content)
-        replaceModalContent(anchordiv);
+    replaceModalContent(anchordiv);
 });
-function replaceModalContent(new_content ) {
+function replaceModalContent(new_content) {
     $("#RANDOMTESTNAME").html(new_content);
 }
 </script>

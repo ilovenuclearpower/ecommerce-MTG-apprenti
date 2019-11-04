@@ -23,6 +23,7 @@ def get_cards_from_scryfall_query(query_string):
             'price': returned_cards_json["data"][i]['prices']['usd'],
             'image': returned_cards_json["data"][i]['image_uris']['small'],
             'oracleText': returned_cards_json["data"][i]['oracle_text'],
+            'large_image': returned_cards_json['data'][i]['image_uris']['normal']
         }
         inventory.append(card)
     return inventory
