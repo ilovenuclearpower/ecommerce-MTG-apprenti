@@ -34,7 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'register.apps.RegisterConfig',
+    'mtgstore.register',
     'mtgstore.carddetail',
     'mtgstore.cardlist',
     'mtgstore.cart',
