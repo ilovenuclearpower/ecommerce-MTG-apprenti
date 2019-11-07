@@ -11,6 +11,13 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import mysql_rds
+import boto3
+
+def generate_pw():
+    session = boto3.session.Session(profile_name='mtgstore')
+    client = session.client('rds', region_name="us-east-2")
+    return client.generate_db_auth_token('database-ecommerce-mtg-apprenti-thirdtry.cebxmljii3h7.us-east-2.rds.amazonaws.com',3306,'masteruser')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -93,8 +100,17 @@ WSGI_APPLICATION = 'mtgstore.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'mysql_rds.backend',
+        'NAME': 'DJANGO',
+        'USER': 'masteruser',
+        'PASSWORD': generate_pw,
+        'PORT': 3306,
+        'HOST': 'database-ecommerce-mtg-apprenti-thirdtry.cebxmljii3h7.us-east-2.rds.amazonaws.com',
+        'OPTIONS': {
+            'ssl': {
+                'ssl-ca': "rds-combined-ca-bundle.pem",
+            }
+        },
     }
 }
 
