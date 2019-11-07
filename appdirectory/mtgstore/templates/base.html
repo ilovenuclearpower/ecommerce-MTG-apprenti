@@ -23,10 +23,12 @@
 </head>
 
 <body id="page-top">
-
+    <!--<img src="{%static 'top_banner.jpg' %}" alt="Top Banner">-->
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-custom" id="mainNav" style="background-color: 000000;">
-        <div class="container">
+    <img src="{%static 'eld_Mythic.png'%}" class="logo" alt="Logo">        
+        <div class="container2">
+            <div class="container">
             <a class="navbar-brand js-scroll-trigger w-100 order-md-0" href="/">Counter-Fireball</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
@@ -53,13 +55,13 @@
             </div>
         </div>
     </nav>
-
+</div>
     <!-- Masthead -->
     <header class="masthead bg-primary text-white text-center">
         <div class="container d-flex align-items-center flex-column">
 
             <!-- Masthead Heading -->
-            <h1 class="masthead-heading text-uppercase mb-0">Counter-FireBall</h1>
+            <h1 class="masthead-heading text-uppercase mb-0">Welcome!</h1>
 
             <!-- Icon Divider -->
             <div class="divider-custom divider-light">
@@ -77,21 +79,18 @@
     </header>
 
     <!-- Main Section -->
-    <section class="page-section portfolio" id="portfolio">
+    <img src= "{%static 'rightbar.jpg' %}" alt="MTG Sidebar" class="rightsidebar">
+    <img src= "{%static 'sidebar.jpg' %}" alt="MTG sidebar" class="sidebar">
 
+    <section class="page-section portfolio" id="portfolio">
+    
         <!-- Main Section Heading -->
         {% block header %}{% endblock header %}
-
         <!-- Icon Divider -->
-        <div class="divider-custom">
-            <div class="divider-custom-line"></div>
-            <div class="divider-custom-icon">
-                <i class="fas fa-star"></i>
-            </div>
-            <div class="divider-custom-line"></div>
-        </div>
-
+        
         <!-- Main Block -->
+        
+        
         {% if messages %}
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">
@@ -99,11 +98,17 @@
             </div>
             {% endfor %}
         {% endif %}
-        <div class="row justify-content-center">
-    
-            
-            {% block main %}{% endblock %}
+        <div> 
         </div>
+        
+        <div class="row justify-content-center">
+            
+           <!-- --> 
+            {% block main %}
+            
+            {% endblock %}
+        </div>
+        
     </section>
 
     <!-- Copyright Section -->
