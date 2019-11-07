@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^register/', include('mtgstore.register.urls', namespace="register_ns"), name="register"),
     url(r'^', include('django.contrib.auth.urls')),
     url(r'^$', TemplateView.as_view(template_name="homepage.html"), name="homepage"),
-    url(r'^cart/', include('mtgstore.cart.urls', namespace="cart_ns"), name="cart")
+    url(r'^cart/', include('mtgstore.cart.urls', namespace="cart_ns"), name="cart"),
+    url(r'^cards/', include('mtgstore.cardlist.urls', namespace="cardlist_ns"), name="card_list"),
 ]

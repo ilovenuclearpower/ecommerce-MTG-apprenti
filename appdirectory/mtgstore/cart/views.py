@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.template.response import TemplateResponse
 from django.contrib import messages
-import asyncio
 import requests
 import json
 
