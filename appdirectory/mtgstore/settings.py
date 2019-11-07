@@ -11,6 +11,13 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import mysql_rds
+import boto3
+
+def generate_pw():
+    session = boto3.session.Session()
+    client = session.client('rds', region_name="us-east-2")
+    return client.generate_db_auth_token('database-ecommerce-mtg-apprenti-thirdtry.cebxmljii3h7.us-east-2.rds.amazonaws.com',3306,'masteruser')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -34,6 +41,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'crispy_forms',
+    'mtgstore.register',
     'mtgstore.carddetail',
     'mtgstore.cardlist',
     'mtgstore.cart',
@@ -91,8 +100,15 @@ WSGI_APPLICATION = 'mtgstore.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django_iam_dbauth.aws.postgresql',
+        'NAME': 'django',
+        'USER': 'djangoapp',
+        'HOST': 'database-django-apprenti-testing-fifthtry.cebxmljii3h7.us-east-2.rds.amazonaws.com',
+        'OPTIONS': {
+            'use_iam_auth': True,
+            'sslmode': 'require',
+            'sslrootcert': 'C:\\Users\\cmatza\\Documents\\ecommerce-MTG-apprenti\\rds-combined-ca-bundle.pem'
+        },
     }
 }
 
@@ -134,3 +150,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CRISPY_TEMPLATE_PACK="bootstrap4"
+
+LOGIN_REDIRECT_URL="/"
+
