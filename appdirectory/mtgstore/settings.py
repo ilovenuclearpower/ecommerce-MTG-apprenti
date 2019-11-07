@@ -15,7 +15,7 @@ import mysql_rds
 import boto3
 
 def generate_pw():
-    session = boto3.session.Session(profile_name='mtgstore')
+    session = boto3.session.Session()
     client = session.client('rds', region_name="us-east-2")
     return client.generate_db_auth_token('database-ecommerce-mtg-apprenti-thirdtry.cebxmljii3h7.us-east-2.rds.amazonaws.com',3306,'masteruser')
 
@@ -100,16 +100,14 @@ WSGI_APPLICATION = 'mtgstore.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mysql_rds.backend',
-        'NAME': 'DJANGO',
-        'USER': 'masteruser',
-        'PASSWORD': generate_pw,
-        'PORT': 3306,
-        'HOST': 'database-ecommerce-mtg-apprenti-thirdtry.cebxmljii3h7.us-east-2.rds.amazonaws.com',
+        'ENGINE': 'django_iam_dbauth.aws.postgresql',
+        'NAME': 'django',
+        'USER': 'djangoapp',
+        'HOST': 'database-django-apprenti-testing-fifthtry.cebxmljii3h7.us-east-2.rds.amazonaws.com',
         'OPTIONS': {
-            'ssl': {
-                'ssl-ca': "rds-combined-ca-bundle.pem",
-            }
+            'use_iam_auth': True,
+            'sslmode': 'require',
+            'sslrootcert': 'C:\\Users\\cmatza\\Documents\\ecommerce-MTG-apprenti\\rds-combined-ca-bundle.pem'
         },
     }
 }
